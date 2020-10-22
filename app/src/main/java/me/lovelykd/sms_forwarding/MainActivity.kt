@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun startInfoActivity() {
+    fun startInfoActivity(view: View) {
         val forwardURL = findViewById<EditText>(R.id.editForwardURL).text.toString()
         setForwardURL(forwardURL)
         val intent = Intent(this, InfoActivity::class.java).apply {
