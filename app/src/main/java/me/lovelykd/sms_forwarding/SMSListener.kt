@@ -3,6 +3,7 @@ package me.lovelykd.sms_forwarding
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.provider.Telephony
 import android.util.Log
@@ -35,7 +36,8 @@ class SMSListener : BroadcastReceiver() {
                 messageBodyBuilder.append(message.displayMessageBody)
             }
             Log.i(logTag, "Received message from $originatingAddress")
-            val url = "$barkServerURL/$originatingAddress/$messageBodyBuilder"
+            val url = Uri.Builder().path(barkServerURL).appendPath(originatingAddress)
+                .appendPath(messageBodyBuilder.toString()).build().path
             val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, null, null)
             queue.addToRequestQueue(jsonObjectRequest)
         }
